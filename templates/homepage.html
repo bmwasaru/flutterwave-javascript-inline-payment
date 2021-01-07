@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Get Paid</title>
+</head>
+<body>
+	<form>
+      <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
+        <h3>Send Money</h3>
+        Email: <input type="email" id="customer_email"><br>
+        Amount: <input type="number" id="amount"><br>
+        Mobile Number<input type="phone" id="customer_phone"><br>
+        <button type="button" onClick="payWithRave()">Send</button>
+    </form>
+    <script>
+        const publicKey = "{{ rave_public_key }}";
+
+        function payWithRave() {
+            var x = getpaidSetup({
+                PBFPubKey: publicKey,
+                customer_email: document.getElementById("customer_email").value,
+                amount: document.getElementById("amount").value,
+                customer_phone: document.getElementById("customer_phone").value,
+                currency: "KES",
+                custom_title: "Duka Letu",
+                onclose: function() {},
+                callback: function(response) {
+                    var txref = response.status;
+                    console.log("This is the response returned after a charge", response);
+                    x.close();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
